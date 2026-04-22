@@ -150,9 +150,80 @@
             cursor: not-allowed;
         }
 
+        .button-loading {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .button-loading::before {
+            content: '';
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.45);
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        .loader-overlay {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 999;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .loader-overlay.visible {
+            display: flex;
+        }
+
+        .loader-card {
+            width: min(100%, 320px);
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 24px 20px;
+            text-align: center;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+        }
+
+        .loader-spinner {
+            width: 42px;
+            height: 42px;
+            margin: 0 auto 14px;
+            border: 4px solid rgba(0, 77, 64, 0.18);
+            border-top-color: var(--dark-green);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        .loader-text {
+            color: var(--dark-green);
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .loader-subtext {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
         .required-star {
             color: red;
             margin-left: 4px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         /* Responsive adjustments for certificate - MUST BE AT THE BOTTOM */
@@ -273,15 +344,35 @@
         <button id="downloadButton" disabled>Download My Certificate</button>
     </div>
 
+    <div id="loaderOverlay" class="loader-overlay" aria-hidden="true">
+        <div class="loader-card" role="status" aria-live="polite">
+            <div class="loader-spinner"></div>
+            <div class="loader-text">Preparing your certificate...</div>
+            <div class="loader-subtext">Please wait while we save your pledge and generate the download.</div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const userNameInput = document.getElementById('userName');
             const userITSInput = document.getElementById('userITS');
             const downloadButton = document.getElementById('downloadButton');
+            const loaderOverlay = document.getElementById('loaderOverlay');
             const displayName = document.getElementById('display-name');
             const displayITS = document.getElementById('display-its');
             const errorMessageDiv = document.getElementById('errorMessage');
             const certificateCurrentDateSpan = document.getElementById('certificate-current-date');
+            const defaultButtonText = 'Download My Certificate';
+            let isDownloading = false;
+
+            const setLoadingState = (loading) => {
+                isDownloading = loading;
+                downloadButton.disabled = loading || downloadButton.disabled;
+                downloadButton.textContent = loading ? 'Generating Certificate...' : defaultButtonText;
+                downloadButton.classList.toggle('button-loading', loading);
+                loaderOverlay.classList.toggle('visible', loading);
+                loaderOverlay.setAttribute('aria-hidden', loading ? 'false' : 'true');
+            };
 
             // Function to check input fields and enable/disable the button
             const checkInputs = () => {
@@ -305,7 +396,7 @@
                 if (displayName) displayName.textContent = name;
                 if (displayITS) displayITS.textContent = its ? "ITS ID: " + its : "";
 
-                downloadButton.disabled = !(name && isItsValid);
+                downloadButton.disabled = isDownloading || !(name && isItsValid);
             };
 
             // Set the current date immediately when the page loads
@@ -321,32 +412,38 @@
             downloadButton.addEventListener('click', async () => {
                 const name = userNameInput.value.trim();
                 const its = userITSInput.value.trim();
+                setLoadingState(true);
 
-                // Send the data directly to Google Apps Script Web App
-                const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzVm4Eq-PEHwglNJD1eeE5MhCUB4XKc02w1NFKO7oPFQ38U8q0Rt7SX4CD4k49nZAPP/exec';
                 try {
-                    await fetch(GOOGLE_SCRIPT_URL, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'text/plain;charset=utf-8',
-                        },
-                        body: JSON.stringify({ name, its }),
-                    });
-                } catch (err) {
-                    console.error('Failed to save pledge to Google Sheets:', err);
-                }
+                    // Send the data directly to Google Apps Script Web App
+                    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzVm4Eq-PEHwglNJD1eeE5MhCUB4XKc02w1NFKO7oPFQ38U8q0Rt7SX4CD4k49nZAPP/exec';
+                    try {
+                        await fetch(GOOGLE_SCRIPT_URL, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'text/plain;charset=utf-8',
+                            },
+                            body: JSON.stringify({ name, its }),
+                        });
+                    } catch (err) {
+                        console.error('Failed to save pledge to Google Sheets:', err);
+                    }
 
-                html2canvas(document.querySelector("#certificate"), {
-                    scale: 2, // Higher quality for better resolution
-                    useCORS: true // Important if external resources (like border-image) are used
-                }).then(canvas => {
+                    const canvas = await html2canvas(document.querySelector("#certificate"), {
+                        scale: 2, // Higher quality for better resolution
+                        useCORS: true // Important if external resources (like border-image) are used
+                    });
+
                     const link = document.createElement('a');
                     link.download = 'Ashara-Azam-Certificate.png';
                     link.href = canvas.toDataURL("image/png");
                     document.body.appendChild(link); // Required for Firefox to download directly
                     link.click();
                     document.body.removeChild(link);
-                });
+                } finally {
+                    setLoadingState(false);
+                    checkInputs();
+                }
             });
         });
     </script>
