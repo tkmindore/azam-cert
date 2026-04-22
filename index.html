@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Ashara Azam - Certificate Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Great+Vibes&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #b08d57;
+            --dark-green: #004d40;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        /* Certificate Container */
+        #certificate {
+            width: 100%;
+            max-width: 800px;
+            aspect-ratio: 800 / 560;
+            background-image: url('certificate.png');
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            padding: 80px 100px; /* Adjusted to fit inside the image's floral borders */
+            box-sizing: border-box;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .header-arabic {
+            display: flex;
+            justify-content: space-between;
+            color: #8b0000;
+            font-size: 24px;
+            font-weight: bold;
+            padding: 0 70px; /* Pulls the text inward, away from the corner flowers */
+            margin-top: 10px; /* Pushes the text down slightly */
+        }
+
+        .cert-logo {
+            width: 50px;
+            height: 50px;
+            margin: 10px auto 0;
+            display: block;
+        }
+
+        .main-title {
+            color: var(--dark-green);
+            font-size: 32px;
+            letter-spacing: 2px;
+            margin: 10px 0;
+            text-transform: uppercase;
+        }
+
+        .sub-text {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        #display-name {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            font-size: 28px;
+            text-transform: uppercase;
+            margin: 5px 0;
+        }
+
+        #display-its {
+            font-weight: bold;
+            color: var(--dark-green);
+            margin-bottom: 15px;
+        }
+
+        .niyyat-list {
+            text-align: left;
+            display: inline-block;
+            font-size: 14px;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .niyyat-list li::marker {
+            color: var(--gold);
+        }
+
+        .niyyat-list ul {
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            margin-top: 0;
+            font-size: 12px;
+            font-weight: bold;
+            color: var(--dark-green);
+        }
+
+        /* Form Styling */
+        .input-form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: var(--dark-green);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #00332c;
+        }
+        
+        button:disabled {
+            background-color: #cccccc;
+            color: #666666;
+            cursor: not-allowed;
+        }
+
+        .required-star {
+            color: red;
+            margin-left: 4px;
+        }
+
+        /* Responsive adjustments for certificate - MUST BE AT THE BOTTOM */
+        @media (max-width: 840px) {
+            #certificate {
+                padding: 10vw 12vw; /* Responsive padding */
+            }
+            .main-title { font-size: 4vw; margin: 1.5vw 0; }
+            .sub-text { font-size: 2.2vw; margin-bottom: 2.5vw; }
+            #display-name { font-size: 3.5vw; margin: 1vw 0; }
+            #display-its { font-size: 2.5vw; margin-bottom: 2vw; }
+            .niyyat-list { font-size: 2vw; line-height: 1.5; }
+            .niyyat-list ul { margin: 1.5vw 0 0.5vw 0; padding-left: 5vw; }
+            .footer { font-size: 1.8vw; margin-top: 0; }
+            .header-arabic { font-size: 3.5vw; padding: 0 8vw; margin-top: 1.5vw; }
+            .cert-logo { width: 7vw; margin-top: 1.5vw; }
+        }
+
+        /* Responsive adjustments for the form on mobile screens */
+        @media (max-width: 480px) {
+            .input-form {
+                padding: 15px;
+                margin-top: 20px;
+            }
+            .input-form h3 {
+                font-size: 18px;
+                margin: 5px 0 15px 0;
+            }
+            .input-form label {
+                font-size: 14px;
+            }
+            input {
+                padding: 8px;
+                font-size: 14px;
+            }
+            button {
+                padding: 10px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="certificate">
+        
+        <div class="header-arabic">
+            <span>يا حسين</span>
+            <img src="logo.png" alt="Logo" class="cert-logo">
+            <span>يا حسين</span>
+        </div>
+        
+        <div class="main-title">My Ashara Azam</div>
+        <div class="sub-text">Acknowledging the sincere Niyyat of</div>
+
+        <div id="display-name"></div>
+        <div id="display-its"></div>
+
+        <div class="niyyat-list">
+            <strong>Mein Em Azam Karoon Choon Ke Ashara Mubaraka Ma Mein:</strong>
+            <ul>
+                <li>Maro Business 100% close raakhis.</li>
+                <li>Job Si Raza Lay-Lais.</li>
+                <li>Studies Si Raza Lay-Lais.</li>
+                <li>Qablal Waqt Waaz ni Majalis Ma Hazir Rahis.</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            TKM INDORE<br>
+            DATE: <span id="certificate-current-date"></span>
+        </div>
+    </div>
+
+    <div class="input-form">
+        <h3>Pledge your Niyyat</h3>
+        <label for="userName">Full Name :<span class="required-star">*</span></label>
+        <input type="text" id="userName" placeholder="Enter Full Name" aria-required="true">
+        <label for="userITS">ITS ID :<span class="required-star">*</span></label>
+        <input type="text" id="userITS" placeholder="Enter ITS ID" aria-required="true">
+        <div id="errorMessage" class="error-message" style="display: none;font-size: 12px;color: #d32f2f;"></div>
+        <button id="downloadButton" disabled>Download My Certificate</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const userNameInput = document.getElementById('userName');
+            const userITSInput = document.getElementById('userITS');
+            const downloadButton = document.getElementById('downloadButton');
+            const displayName = document.getElementById('display-name');
+            const displayITS = document.getElementById('display-its');
+            const errorMessageDiv = document.getElementById('errorMessage');
+            const certificateCurrentDateSpan = document.getElementById('certificate-current-date');
+
+            // Function to check input fields and enable/disable the button
+            const checkInputs = () => {
+                const name = userNameInput.value.trim();
+                const its = userITSInput.value.trim();
+                const itsRegex = /^\d{8}$/;
+
+                let isItsValid = false;
+
+                if (its === '') {
+                    errorMessageDiv.style.display = 'none';
+                } else if (!itsRegex.test(its)) {
+                    errorMessageDiv.textContent = 'ITS ID must be exactly 8 numeric digits.';
+                    errorMessageDiv.style.display = 'block';
+                } else {
+                    isItsValid = true;
+                    errorMessageDiv.style.display = 'none';
+                }
+
+                // Update the certificate preview live as the user types
+                if (displayName) displayName.textContent = name;
+                if (displayITS) displayITS.textContent = its ? "ITS ID: " + its : "";
+
+                downloadButton.disabled = !(name && isItsValid);
+            };
+
+            // Set the current date immediately when the page loads
+            certificateCurrentDateSpan.textContent = new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+
+            // Initial check for button state on page load
+            checkInputs();
+
+            // Add event listeners to input fields to check on every input
+            userNameInput.addEventListener('input', checkInputs);
+            userITSInput.addEventListener('input', checkInputs);
+
+            downloadButton.addEventListener('click', async () => {
+                const name = userNameInput.value.trim();
+                const its = userITSInput.value.trim();
+
+                // Send the data directly to Google Apps Script Web App
+                const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzVm4Eq-PEHwglNJD1eeE5MhCUB4XKc02w1NFKO7oPFQ38U8q0Rt7SX4CD4k49nZAPP/exec';
+                try {
+                    await fetch(GOOGLE_SCRIPT_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'text/plain;charset=utf-8',
+                        },
+                        body: JSON.stringify({ name, its }),
+                    });
+                } catch (err) {
+                    console.error('Failed to save pledge to Google Sheets:', err);
+                }
+
+                html2canvas(document.querySelector("#certificate"), {
+                    scale: 2, // Higher quality for better resolution
+                    useCORS: true // Important if external resources (like border-image) are used
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = 'Ashara-Azam-Certificate.png';
+                    link.href = canvas.toDataURL("image/png");
+                    document.body.appendChild(link); // Required for Firefox to download directly
+                    link.click();
+                    document.body.removeChild(link);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
