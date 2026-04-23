@@ -27,14 +27,14 @@
         #certificate {
             width: 100%;
             max-width: 760px;
-            aspect-ratio: 1200 / 880;
+            aspect-ratio: 1029 / 1000;
             background-image: url('certificate.png');
             background-size: 100% 100%;
             background-position: center;
             background-repeat: no-repeat;
             position: relative;
             box-shadow: 0 0 20px rgba(0,0,0,0.2);
-            padding: 80px 100px; /* Adjusted to fit inside the image's floral borders */
+            padding: 100px 100px 40px; /* Adjusted to fit inside the image's floral borders */
             box-sizing: border-box;
             text-align: center;
             overflow: hidden;
@@ -59,7 +59,7 @@
 
         .main-title {
             color: #8b0000;
-            font-size: 30px;
+            font-size: 36px;
             letter-spacing: 2px;
             margin: 10px 0;
             text-transform: uppercase;
@@ -69,14 +69,14 @@
         .sub-text {
             font-style: italic;
             color: #666;
-            font-size: 20px;
+            font-size: 24px;
             margin-bottom: 22px;
         }
 
         #display-name {
             font-family: 'Playfair Display', serif;
             color: var(--gold);
-            font-size: 30px;
+            font-size: 38px;
             text-transform: uppercase;
             margin: 5px 0;
         }
@@ -84,7 +84,7 @@
         #display-its {
             font-weight: bold;
             color: var(--dark-green);
-            font-size: 20px;
+            font-size: 24px;
             margin-bottom: 15px;
         }
 
@@ -93,13 +93,9 @@
             display: block;
             width: fit-content;
             margin: 0 auto;
-            font-size: 17px;
+            font-size: 20px;
             line-height: 1.75;
             color: #333;
-        }
-
-        .niyyat-list li::marker {
-            content: '';
         }
 
         .niyyat-list ul {
@@ -108,14 +104,21 @@
             padding-left: 0;
         }
 
-        .niyyat-list li::before {
-            content: '★ ';
+        .niyyat-list .star {
             color: var(--gold);
+            margin-right: 4px;
+        }
+
+        #blank_space {
+            display: block;
+            height: 0.1px; /* Adjust this value to increase or decrease the gap */
+            padding: 0%;
+            margin: 0%;
         }
 
         .footer {
             margin-top: 0;
-            font-size: 15px;
+            font-size: 18px;
             font-weight: bold;
             color: var(--dark-green);
         }
@@ -246,15 +249,16 @@
         /* Responsive adjustments for certificate - MUST BE AT THE BOTTOM */
         @media (max-width: 840px) {
             #certificate {
-                padding: 10vw 12vw; /* Responsive padding */
+                padding: 11vw 12vw 5vw; /* Responsive padding */
             }
-            .main-title { font-size: 4.5vw; margin: 1.5vw 0; }
-            .sub-text { font-size: 2.5vw; margin-bottom: 2.5vw; }
-            #display-name { font-size: 4vw; margin: 1vw 0; }
-            #display-its { font-size: 2.8vw; margin-bottom: 2vw; }
-            .niyyat-list { font-size: 2.3vw; line-height: 1.55; }
+            .main-title { font-size: 5.5vw; margin: 1.5vw 0; }
+            .sub-text { font-size: 3vw; margin-bottom: 2.5vw; }
+            #display-name { font-size: 5vw; margin: 1vw 0; }
+            #display-its { font-size: 3.3vw; margin-bottom: 2vw; }
+            .niyyat-list { font-size: 2.8vw; line-height: 1.55; }
             .niyyat-list ul { margin: 1.5vw 0 0.5vw 0; padding-left: 0; }
-            .footer { font-size: 2vw; margin-top: 0; }
+            #blank_space { height: 1vw; }
+            .footer { font-size: 2.5vw; margin-top: 0; }
             .header-arabic { font-size: 3.5vw; padding: 0 8vw; margin-top: 1.5vw; }
             .cert-logo { width: 7vw; margin-top: 1.5vw; }
         }
@@ -262,35 +266,38 @@
         /* Responsive adjustments for the form on mobile screens */
         @media (max-width: 480px) {
             #certificate {
-                padding: 9vw 11vw;
+                padding: 11vw 11vw 5vw;
             }
             .main-title {
-                font-size: 3.6vw;
+                font-size: 4.5vw;
                 letter-spacing: 1px;
                 margin: 1vw 0;
             }
             .sub-text {
-                font-size: 2.3vw;
+                font-size: 2.8vw;
                 margin-bottom: 1.8vw;
             }
             #display-name {
-                font-size: 3vw;
+                font-size: 4.2vw;
                 margin: 0.6vw 0;
             }
             #display-its {
-                font-size: 2.3vw;
+                font-size: 2.8vw;
                 margin-bottom: 1.2vw;
             }
             .niyyat-list {
-                font-size: 2vw;
+                font-size: 2.6vw;
                 line-height: 1.4;
             }
             .niyyat-list ul {
                 margin: 1vw 0 0.5vw 0;
                 padding-left: 0;
             }
+            #blank_space {
+                height: 1vw;
+            }
             .footer {
-                font-size: 1.8vw;
+                font-size: 2.2vw;
             }
             .header-arabic {
                 font-size: 3vw;
@@ -332,13 +339,14 @@
         <div class="niyyat-list">
             <strong>Mein Em Azam Karoon Choon Ke Ashara Mubaraka Ma Mein:</strong>
             <ul>
-                <li>Maro Business 100% close raakhis.</li>
-                <li>Job Si Raza Lay-Lais.</li>
-                <li>Studies Si Raza Lay-Lais.</li>
-                <li>Qablal Waqt Waaz ni Majalis Ma Hazir Rahis.</li>
+                <li><span class="star">★</span> Maro Business 100% close raakhis.</li>
+                <li><span class="star">★</span> Job Si Raza Lay-Lais.</li>
+                <li><span class="star">★</span> Studies Si Raza Lay-Lais.</li>
+                <li><span class="star">★</span> Qablal Waqt Waaz ni Majalis Ma Hazir Rahis.</li>
             </ul>
         </div>
-
+        
+        <span id = "blank_space" ></span>
         <div class="footer">
             TKM INDORE<br>
             DATE: <span id="certificate-current-date"></span>
@@ -451,9 +459,9 @@
                         windowWidth: 1024
                     });
 
-                    // 3. Smoothly downscale to the exact requested 1520px width for a crisp result
-                    const targetWidth = 1520;
-                    const targetHeight = rawCanvas.height * (targetWidth / rawCanvas.width);
+                    // 3. Smoothly downscale to the exact requested 1029x1200 resolution for a crisp result
+                    const targetWidth = 1029;
+                    const targetHeight = 1200;
                     
                     const canvas = document.createElement('canvas');
                     canvas.width = targetWidth;
