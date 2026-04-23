@@ -26,8 +26,8 @@
         /* Certificate Container */
         #certificate {
             width: 100%;
-            max-width: 800px;
-            aspect-ratio: 800 / 560;
+            max-width: 760px;
+            aspect-ratio: 1200 / 880;
             background-image: url('certificate.png');
             background-size: 100% 100%;
             background-position: center;
@@ -58,23 +58,25 @@
         }
 
         .main-title {
-            color: var(--dark-green);
-            font-size: 32px;
+            color: #8b0000;
+            font-size: 30px;
             letter-spacing: 2px;
             margin: 10px 0;
             text-transform: uppercase;
+            font-weight: bolder;
         }
 
         .sub-text {
             font-style: italic;
             color: #666;
-            margin-bottom: 20px;
+            font-size: 20px;
+            margin-bottom: 22px;
         }
 
         #display-name {
             font-family: 'Playfair Display', serif;
             color: var(--gold);
-            font-size: 28px;
+            font-size: 30px;
             text-transform: uppercase;
             margin: 5px 0;
         }
@@ -82,28 +84,38 @@
         #display-its {
             font-weight: bold;
             color: var(--dark-green);
+            font-size: 20px;
             margin-bottom: 15px;
         }
 
         .niyyat-list {
             text-align: left;
-            display: inline-block;
-            font-size: 14px;
-            line-height: 1.8;
+            display: block;
+            width: fit-content;
+            margin: 0 auto;
+            font-size: 17px;
+            line-height: 1.75;
             color: #333;
         }
 
         .niyyat-list li::marker {
-            color: var(--gold);
+            content: '';
         }
 
         .niyyat-list ul {
+            list-style: none;
             margin-bottom: 10px;
+            padding-left: 0;
+        }
+
+        .niyyat-list li::before {
+            content: '★ ';
+            color: var(--gold);
         }
 
         .footer {
             margin-top: 0;
-            font-size: 12px;
+            font-size: 15px;
             font-weight: bold;
             color: var(--dark-green);
         }
@@ -111,19 +123,24 @@
         /* Form Styling */
         .input-form {
             background: white;
-            padding: 20px;
+            padding: 16px;
             border-radius: 8px;
-            margin-top: 30px;
+            margin-top: 36px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             width: 100%;
-            max-width: 400px;
+            max-width: 360px;
             box-sizing: border-box;
+        }
+
+        .input-form h3 {
+            font-size: 22px;
+            margin: 0 0 15px;
         }
 
         input {
             width: 100%;
-            padding: 10px;
-            margin: 10px 0;
+            padding: 9px;
+            margin: 8px 0;
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
@@ -132,12 +149,12 @@
         button {
             background-color: var(--dark-green);
             color: white;
-            padding: 12px 20px;
+            padding: 11px 18px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             width: 100%;
-            font-size: 16px;
+            font-size: 15px;
         }
 
         button:hover {
@@ -231,13 +248,13 @@
             #certificate {
                 padding: 10vw 12vw; /* Responsive padding */
             }
-            .main-title { font-size: 4vw; margin: 1.5vw 0; }
-            .sub-text { font-size: 2.2vw; margin-bottom: 2.5vw; }
-            #display-name { font-size: 3.5vw; margin: 1vw 0; }
-            #display-its { font-size: 2.5vw; margin-bottom: 2vw; }
-            .niyyat-list { font-size: 2vw; line-height: 1.5; }
-            .niyyat-list ul { margin: 1.5vw 0 0.5vw 0; padding-left: 5vw; }
-            .footer { font-size: 1.8vw; margin-top: 0; }
+            .main-title { font-size: 4.5vw; margin: 1.5vw 0; }
+            .sub-text { font-size: 2.5vw; margin-bottom: 2.5vw; }
+            #display-name { font-size: 4vw; margin: 1vw 0; }
+            #display-its { font-size: 2.8vw; margin-bottom: 2vw; }
+            .niyyat-list { font-size: 2.3vw; line-height: 1.55; }
+            .niyyat-list ul { margin: 1.5vw 0 0.5vw 0; padding-left: 0; }
+            .footer { font-size: 2vw; margin-top: 0; }
             .header-arabic { font-size: 3.5vw; padding: 0 8vw; margin-top: 1.5vw; }
             .cert-logo { width: 7vw; margin-top: 1.5vw; }
         }
@@ -248,43 +265,44 @@
                 padding: 9vw 11vw;
             }
             .main-title {
-                font-size: 3.2vw;
+                font-size: 3.6vw;
                 letter-spacing: 1px;
                 margin: 1vw 0;
             }
             .sub-text {
-                font-size: 2vw;
+                font-size: 2.3vw;
                 margin-bottom: 1.8vw;
             }
             #display-name {
-                font-size: 2.7vw;
+                font-size: 3vw;
                 margin: 0.6vw 0;
             }
             #display-its {
-                font-size: 2vw;
+                font-size: 2.3vw;
                 margin-bottom: 1.2vw;
             }
             .niyyat-list {
-                font-size: 1.8vw;
+                font-size: 2vw;
                 line-height: 1.4;
             }
             .niyyat-list ul {
                 margin: 1vw 0 0.5vw 0;
-                padding-left: 4.5vw;
+                padding-left: 0;
             }
             .footer {
-                font-size: 1.6vw;
+                font-size: 1.8vw;
             }
             .header-arabic {
                 font-size: 3vw;
                 padding: 0 7vw;
             }
             .input-form {
-                padding: 15px;
-                margin-top: 20px;
+                padding: 13px;
+                margin-top: 26px;
+                max-width: 330px;
             }
             .input-form h3 {
-                font-size: 18px;
+                font-size: 17px;
                 margin: 5px 0 15px 0;
             }
             .input-form label {
@@ -304,13 +322,6 @@
 <body>
 
     <div id="certificate">
-
-        <!-- <img src="logo.png" alt="Logo" class="cert-logo"> -->
-        
-        <div class="header-arabic">
-            <span>يا حسين</span>
-            <span>يا حسين</span>
-        </div>
         
         <div class="main-title">My Ashara Azam</div>
         <div class="sub-text">Acknowledging the sincere Niyyat of</div>
@@ -429,10 +440,28 @@
                         console.error('Failed to save pledge to Google Sheets:', err);
                     }
 
-                    const canvas = await html2canvas(document.querySelector("#certificate"), {
-                        scale: 2, // Higher quality for better resolution
-                        useCORS: true // Important if external resources (like border-image) are used
+                    const certificateElement = document.querySelector("#certificate");
+
+                    // To fix blurry images (especially background logos on mobile), we use supersampling:
+                    // 1. Force desktop layout via windowWidth to avoid mobile layout squishing artifacts.
+                    // 2. Render at a very high resolution (scale: 4 = 3040px wide).
+                    const rawCanvas = await html2canvas(certificateElement, {
+                        scale: 4,
+                        useCORS: true,
+                        windowWidth: 1024
                     });
+
+                    // 3. Smoothly downscale to the exact requested 1520px width for a crisp result
+                    const targetWidth = 1520;
+                    const targetHeight = rawCanvas.height * (targetWidth / rawCanvas.width);
+                    
+                    const canvas = document.createElement('canvas');
+                    canvas.width = targetWidth;
+                    canvas.height = targetHeight;
+                    const ctx = canvas.getContext('2d');
+                    ctx.imageSmoothingEnabled = true;
+                    ctx.imageSmoothingQuality = 'high';
+                    ctx.drawImage(rawCanvas, 0, 0, targetWidth, targetHeight);
 
                     const link = document.createElement('a');
                     link.download = 'Ashara-Azam-Certificate.png';
